@@ -3,6 +3,11 @@ spring:
     name: AS4IT Image Webservice API
     description: RESTful Webservices for AS4IT Images
 
+  h2:
+    console:
+      enabled: true
+
 logging:
   level:
     web: debug
+

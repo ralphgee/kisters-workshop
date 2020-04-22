@@ -43,4 +43,14 @@ public class ImageService {
             }
         };
     }
+
+    public List<Image> findAll() {
+        List<Image> returnList = new ArrayList<>();
+        repository.findAll().forEach(e -> returnList.add(e));
+        return returnList;
+    }
+
+    public Image findById(int nr) {
+        return repository.findById((long) nr).orElse(null);
+    }
 }
