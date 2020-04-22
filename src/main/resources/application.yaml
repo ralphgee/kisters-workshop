@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: AS4IT Image Webservice API
+    description: RESTful Webservices for AS4IT Images
+
+logging:
+  level:
+    web: debug
