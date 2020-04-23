@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 import java.net.URL;
 import java.time.LocalDate;
 
@@ -22,14 +23,22 @@ public class Image {
     private Long id;
 
     @JsonProperty
+    @NotBlank
+    @Size(min=4,max=64)
     private String name;
+
     @JsonProperty
+    @NotNull
     private URL location;
+
     @JsonProperty
     @JsonFormat(pattern="yyyy-MM-dd")
+    @PastOrPresent
     private LocalDate publishedAt;
+
     @JsonProperty
     @JsonFormat(pattern="yyyy-MM-dd")
+    @PastOrPresent
     private LocalDate lastModified;
 
     public  Image(){
@@ -68,5 +77,10 @@ public class Image {
 
     public void setLastModified(LocalDate lastModified) {
         this.lastModified = lastModified;
+    }
+
+
+    public Long getId() {
+        return id;
     }
 }

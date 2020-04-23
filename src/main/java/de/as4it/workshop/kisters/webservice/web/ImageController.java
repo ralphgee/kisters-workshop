@@ -1,18 +1,17 @@
 package de.as4it.workshop.kisters.webservice.web;
 
 import de.as4it.workshop.kisters.webservice.ImageService;
+import de.as4it.workshop.kisters.webservice.domain.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 @Controller
 public class ImageController {
@@ -24,6 +23,22 @@ public class ImageController {
     public String showImages(Model model) {
         model.addAttribute("name","KISTERS");
         return "greeting";
+    }
+
+    @RequestMapping(value="/gallery",method = RequestMethod.GET)
+    public String gallery(Model model){
+
+        List<Image> images = imageService.findAll();
+        model.addAttribute("images",images);
+        return "gallery";
+    }
+
+    @RequestMapping(value="/gallery/{id}",method = RequestMethod.GET)
+    public String gallerySingleImage(@PathVariable("id") int id,  Model model){
+
+        Image image = imageService.findById(id);
+        model.addAttribute("image",image);
+        return "gallerySingle";
     }
 
     @PostMapping(consumes = "multipart/form-data")

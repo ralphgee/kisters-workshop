@@ -5,7 +5,9 @@ import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -35,8 +37,8 @@ public class ImageResourceTest {
         assertThat(port).isGreaterThan(0);
 
         RequestEntity request = RequestEntity.get(new URI(MessageFormatter.arrayFormat("http://{}:{}/images/info", new Object[]{host, (long) port}).getMessage()))
+                                .header("Accept", MediaType.APPLICATION_JSON_VALUE)
                                 .build();
-
         ResponseEntity<String> result = restTemplate.exchange(request, String.class);
         assertThat(result).isNotNull();
         assertThat(result.getStatusCode().is2xxSuccessful()).isTrue();

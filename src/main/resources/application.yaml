@@ -1,13 +1,29 @@
+
+
 spring:
   application:
     name: AS4IT Image Webservice API
     description: RESTful Webservices for AS4IT Images
 
+
   h2:
     console:
       enabled: true
+  data:
+    jdbc:
+      repositories:
+        enabled: false
 
 logging:
   level:
     web: debug
 
+server:
+  port: 9090
+  error:
+    include-exception: on
+    include-stacktrace: always
+
+springdoc:
+  packagesToScan: de.as4it.workshop.kisters.webservice.rest
+  pathsToMatch: /**

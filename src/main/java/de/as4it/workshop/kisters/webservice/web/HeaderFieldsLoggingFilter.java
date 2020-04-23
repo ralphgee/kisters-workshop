@@ -9,26 +9,26 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.UUID;
 
-@WebFilter//(urlPatterns = "/images")
-public class TimingFilter implements Filter {
+@WebFilter(urlPatterns = "/images")
+public class HeaderFieldsLoggingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // default implementation ignored
     }
 
-    private final Logger log = LoggerFactory.getLogger(TimingFilter.class);
+    private final Logger log = LoggerFactory.getLogger(HeaderFieldsLoggingFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        log.info("Incoming Request: {} {}", ((HttpServletRequest) servletRequest).getMethod(), ((HttpServletRequest) servletRequest).getRequestURL());
-        StopWatch watch = new StopWatch("Timing");
-        String id = UUID.randomUUID().toString();
-        watch.start(id);
+        Enumeration<String> headerNames = ((HttpServletRequest) servletRequest).getHeaderNames();
+        while(headerNames.hasMoreElements()){
+            String headerName = headerNames.nextElement();
+            log.info("Name: {} with Value {}",headerName,((HttpServletRequest) servletRequest).getHeader(headerName));
+        }
         filterChain.doFilter(servletRequest, servletResponse);
-        watch.stop();
-        log.info("Outgoing Response for {} {}: {} in {} seconds", ((HttpServletRequest) servletRequest).getMethod(), ((HttpServletRequest) servletRequest).getRequestURL(), ((HttpServletResponse) servletResponse).getStatus(), watch.getLastTaskInfo().getTimeSeconds());
     }
 
     @Override

@@ -75,7 +75,7 @@ public class ImageJDBCDatabaseTests {
 
     @Test
     public void testImageDataInitilizerWithNamesParameter() {
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("name", "Image");
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("name", "Image1");
         List list = namedParameterJdbcTemplate.queryForList("SELECT * from image where name = :name", namedParameters);
         assertThat(list).isNotEmpty();
     }

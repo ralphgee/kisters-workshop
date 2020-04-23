@@ -12,6 +12,8 @@ import java.util.Date;
 //@RepositoryRestResource
 public interface ImageRepository extends CrudRepository<Image, Long>, JpaSpecificationExecutor<Image> {
 
+    public Image findAllByLocationContainsAndIdAfterOrderByName(String loc, int id);
+
     public Image findFirstByName(String name);
 
     public Image findImagesByPublishedAtAfter(Date publishDate);
