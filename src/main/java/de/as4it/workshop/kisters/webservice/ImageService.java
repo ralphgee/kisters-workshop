@@ -5,6 +5,7 @@ import de.as4it.workshop.kisters.webservice.domain.Image_;
 import de.as4it.workshop.kisters.webservice.repository.ImageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -57,9 +58,17 @@ public class ImageService {
     }
 
     public List<Image> findAll() {
+
+//        Image i = Image.builder().id(1L).lastModified(LocalDate.now()).build();
+//        i.withId(1L).withName("Name");
+        //Image.of(1L,"name",null,null,null);
+        //Image i2 = new Image()
+
+
         List<Image> returnList = new ArrayList<>();
         repository.findAll().forEach(e -> returnList.add(e));
         return returnList;
+
     }
 
     public void save(Image image) {

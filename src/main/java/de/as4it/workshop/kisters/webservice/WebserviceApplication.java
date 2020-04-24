@@ -8,6 +8,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,8 +16,9 @@ import javax.persistence.EntityManagerFactory;
 
 @SpringBootApplication
 @ServletComponentScan
-@EnableJpaRepositories
+//@EnableJpaRepositories
 //@EnableJpaRepositories(basePackages = "de.as4it.workshop.kisters.webservice.repository",entityManagerFactoryRef = "entityManagerFactory2")
+//@EnableJpaRepositories(basePackages = "de.as4it.workshop.kisters.webservice.repository3",entityManagerFactoryRef = "entityManagerFactory3")
 @EnableScheduling
 public class WebserviceApplication {
 
@@ -25,10 +27,8 @@ public class WebserviceApplication {
 	}
 
 //	@Bean
-//	public EntityManagerFactory entityManagerFactory2(EntityManagerFactoryBuilder builder){
-//		//builder.dataSource(DataSourceBuilder.create().)
-//
-//		return null;
+//	public LocalContainerEntityManagerFactoryBean entityManagerFactory2(EntityManagerFactoryBuilder builder){
+//		return builder.dataSource(DataSourceBuilder.create().url("${db2.url}").password("password2").username("user2").build()).build();
 //	}
 	
 }

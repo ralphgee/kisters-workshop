@@ -1,6 +1,7 @@
 package de.as4it.workshop.kisters.webservice;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 

@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/images")
+@Validated
 public class ImageResource {
 
 
@@ -64,7 +66,7 @@ public class ImageResource {
     @Operation(summary = "Gets an existing Image",
             description = "Gets an existing Image")
     @RequestMapping(value = "/{nr}", method = RequestMethod.GET)
-    public Image showImageAsJSON(@PathVariable("nr") int nr) {
+    public Image showImageAsJSON(@PathVariable("nr") @Positive int nr) {
         Image image = imageService.findById(nr);
         return image;
     }
@@ -74,7 +76,14 @@ public class ImageResource {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createImage(@Valid @RequestBody Image image) {
         imageService.save(image);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.CREATED).build();
+        
+        // Post Conditions
+        classInvariant();
+        return responseEntity;
+    }
+
+    private void classInvariant() {
     }
 
 }

@@ -3,6 +3,7 @@ package de.as4it.workshop.kisters.webservice.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
  */
 @JsonAutoDetect
 @Entity
+@Getter
+@NoArgsConstructor
 public class Image {
 
     @Id
@@ -40,11 +43,7 @@ public class Image {
     @JsonFormat(pattern="yyyy-MM-dd")
     @PastOrPresent
     private LocalDate lastModified;
-
-    public  Image(){
-
-    }
-
+    
     public Image(String name, URL location,LocalDate pub, LocalDate lastModified) {
         this.name = name;
         this.location = location;
@@ -72,15 +71,15 @@ public class Image {
 
     public LocalDate getLastModified() {
         return lastModified;
-
     }
 
     public void setLastModified(LocalDate lastModified) {
         this.lastModified = lastModified;
     }
 
-
-    public Long getId() {
-        return id;
+    public Image calculate()
+    {
+        return this;
     }
+    
 }

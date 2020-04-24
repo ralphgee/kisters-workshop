@@ -1,25 +1,28 @@
-
-
 spring:
   application:
     name: AS4IT Image Webservice API
     description: RESTful Webservices for AS4IT Images
 
-
   h2:
     console:
       enabled: true
+
   data:
     jdbc:
       repositories:
         enabled: false
+  jpa:
+    generate-ddl: on
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 logging:
   level:
     web: debug
 
 server:
-  port: 9090
+  port: 8080
   error:
     include-exception: on
     include-stacktrace: always

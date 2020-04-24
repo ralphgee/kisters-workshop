@@ -1,5 +1,6 @@
 package de.as4it.workshop.kisters.webservice.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
@@ -12,13 +13,14 @@ import java.io.IOException;
 import java.util.UUID;
 
 @WebFilter//(urlPatterns = "/images")
+@Slf4j
 public class TimingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // default implementation ignored
     }
 
-    private final Logger log = LoggerFactory.getLogger(TimingFilter.class);
+    //private final Logger log = LoggerFactory.getLogger(TimingFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

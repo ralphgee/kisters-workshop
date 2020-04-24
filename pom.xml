@@ -109,6 +109,60 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.28.0</version>
+                <configuration>
+                    <autoPull>always</autoPull>
+                    <useColor>false</useColor>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>webservice</name>
+                            <alias>webservice</alias>
+                            <registry>docker.as-labs.com</registry>
+                            <build>
+                                <from>adoptopenjdk:11-hotspot</from>
+                                <ports>
+                                    <port>9090</port>
+                                </ports>
+                                <entryPoint>
+                                    <exec>
+                                        <arg>java</arg>
+                                        <arg>-Xmx4G</arg>
+                                        <arg>-jar</arg>
+                                        <arg>-Djava.security.egd=file:/dev/urandom</arg>
+                                        <arg>${project.build.finalName}.jar</arg>
+                                    </exec>
+                                </entryPoint>
+                                <user>1000</user>
+                                <workdir>/opt/app</workdir>
+                                <assembly>
+                                    <mode>dir</mode>
+                                    <basedir>/opt/app</basedir>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                    <!--<tag>${project.version}-${env.BUILD_NUMBER}</tag>-->
+                                </tags>
+                                <runCmds>
+                                    <run>useradd -d /opt/app app</run>
+                                    <run>chown app:app /opt/app -R</run>
+                                </runCmds>
+                            </build>
+                            <run>
+                                <namingStrategy>alias</namingStrategy>
+                                <ports>
+                                    <port>10000:8080</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
                 <version>2.2.4</version>
